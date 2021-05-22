@@ -4,10 +4,6 @@ const useHttp = (url, dependencies) => {
   const [isLoading, setIsLoading] = useState(false);
   const [fetchedData, setFetchedData] = useState(null);
 
-  /*  parameterMap = new Map(parameterMap);
-  for (const [key, value] of parameterMap) {
-    url += key + "=" + value + "&";
-  }*/
   useEffect(() => {
     console.log("data being fetched");
     setIsLoading(true);
