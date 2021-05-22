@@ -1,29 +1,28 @@
 import { useEffect, useState } from "react";
 
-function cleanURL(url)
-{
-  let indexStart = 0, indexEnd= url.length-1;
-  for (let i = url.length-1, let j= 0; i >0, j<url.length; i--, j++) {
-    if(url[i]==='/')
-    {
+function cleanURL(url) {
+  let indexStart = 0,
+    indexEnd = url.length - 1;
+  for (let i = url.length - 1; i > 0; i--) {
+    if (url[i] === "/") {
       indexEnd--;
     }
-    if(url[j]==='/')
-    {
+  }
+  for (let j = 0; j < url.length; j++) {
+    if (url[j] === "/") {
       indexStart++;
     }
   }
-  return url.slice(indexStart,indexEnd);
+  return url.slice(indexStart, indexEnd);
 }
 
-
-export const useHttp = (baseurl,endpoint, parameterMap = {} , dependencies) => {
+const useHttp = (baseurl, endpoint, parameterMap = {}, dependencies) => {
   const [isLoading, setIsLoading] = useState(false);
   const [fetchedData, setFetchedData] = useState(null);
 
-  let url = "http://"+cleanURL(baseurl)+ '/' + cleanURL(endpoint) + "?";
-  for ([key,value] of parameterMap){
-    url+= key + "=" + value + "&";
+  let url = "http://" + cleanURL(baseurl) + "/" + cleanURL(endpoint) + "?";
+  for (const [key, value] of parameterMap) {
+    url += key + "=" + value + "&";
   }
   useEffect(() => {
     setIsLoading(true);
@@ -45,3 +44,5 @@ export const useHttp = (baseurl,endpoint, parameterMap = {} , dependencies) => {
   }, [...dependencies, url]);
   return [isLoading, fetchedData];
 };
+
+export { useHttp };
