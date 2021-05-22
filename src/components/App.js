@@ -2,13 +2,15 @@ import "../styles/App.css";
 
 import { useHttp } from "../hooks/NetworkHooks";
 import { ThemeContext } from "../contexts/ThemeContext";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Card } from "./Card";
 
 function App() {
   const [theme, setTheme] = useState(true);
   const [cards, setCards] = useState([]);
+  const [score, setScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
   let [isLoading, fetchedData] = useHttp(
     "http://rickandmortyapi.com/api/character",
     []
@@ -25,24 +27,51 @@ function App() {
           obj.cardID = index;
           return obj;
         });
-        console.log(myData);
+        //console.log(myData);
         return myData;
       });
     }
   }, [fetchedData]);
-
-  const shuffleCards = useCallback(() => {
-    let cardsCloneShallow = cards;
-    for (let i = 0; i < 10; i++) {
-      let index1 = Math.floor(Math.random() * cardsCloneShallow.length);
-      let index2 = Math.floor(Math.random() * cardsCloneShallow.length);
-      let tempCard = cardsCloneShallow[index1];
-      cardsCloneShallow[index1] = cardsCloneShallow[index2];
-      cardsCloneShallow[index2] = tempCard;
+  const reset = () => {
+    console.log("resetting");
+    let cardsClone = [...cards];
+    for (let [key, value] of cardsClone.entries()) {
+      value.seen = false;
     }
-    setCards(cardsCloneShallow);
-    console.log(cardsCloneShallow);
-  }, [cards]);
+    setCards(cardsClone);
+
+    //
+  };
+  const markSeenAndShuffleCards = (cardID) => {
+    let cardsClone = [...cards];
+    for (let [key, value] of cardsClone.entries()) {
+      if (value.cardID === cardID) {
+        if (value.seen !== true) {
+          value.seen = true;
+          setScore((prevScore) => {
+            if (prevScore + 1 > bestScore) {
+              setBestScore(prevScore + 1);
+            }
+            return prevScore + 1;
+          });
+        } else {
+          setScore(0);
+          reset();
+          return;
+        }
+      }
+    }
+    console.log("shuffling");
+    for (let i = 0; i < cards.length; i++) {
+      let index1 = Math.floor(Math.random() * cardsClone.length);
+      let index2 = Math.floor(Math.random() * cardsClone.length);
+      let tempCard = cardsClone[index1];
+      cardsClone[index1] = cardsClone[index2];
+      cardsClone[index2] = tempCard;
+    }
+    setCards(cardsClone);
+    //console.log(cardsClone);
+  };
 
   const toggleTheme = () => {
     setTheme(!theme);
@@ -60,13 +89,18 @@ function App() {
           RICKZHEIMERS
         </div>
         <div className={"main-body-container" + (theme ? "-dark" : "-light")}>
-          <div
-            className={"score-container" + (theme ? "-dark" : "-light")}
-          ></div>
+          <div className={"score-container" + (theme ? "-dark" : "-light")}>
+            <p>Score: {score}/20</p>
+            <p>Best Score: {bestScore}/20</p>
+          </div>
           <div className={"card-container" + (theme ? "-dark" : "-light")}>
             {cards.map((card, index) => {
               return (
-                <Card key={index} onClick={shuffleCards} cardData={card}></Card>
+                <Card
+                  key={index}
+                  onClick={markSeenAndShuffleCards.bind(null, card.cardID)}
+                  cardData={card}
+                ></Card>
               );
             })}
           </div>
