@@ -2,7 +2,7 @@ import "../styles/App.css";
 
 import { useHttp } from "../hooks/NetworkHooks";
 import { ThemeContext } from "../contexts/ThemeContext";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { Card } from "./Card";
 
@@ -17,18 +17,41 @@ function App() {
     console.log("useEffect is running");
     if (!isLoading && fetchedData) {
       setCards((prevCards) => {
-        console.log(fetchedData.results);
-        return fetchedData.results;
+        let myData = fetchedData.results.map((character, index) => {
+          let obj = {};
+          obj.name = character.name;
+          obj.image = character.image;
+          obj.seen = false;
+          obj.cardID = index;
+          return obj;
+        });
+        console.log(myData);
+        return myData;
       });
     }
   }, [fetchedData]);
+
+  const shuffleCards = useCallback(() => {
+    let cardsCloneShallow = cards;
+    for (let i = 0; i < 10; i++) {
+      let index1 = Math.floor(Math.random() * cardsCloneShallow.length);
+      let index2 = Math.floor(Math.random() * cardsCloneShallow.length);
+      let tempCard = cardsCloneShallow[index1];
+      cardsCloneShallow[index1] = cardsCloneShallow[index2];
+      cardsCloneShallow[index2] = tempCard;
+    }
+    setCards(cardsCloneShallow);
+    console.log(cardsCloneShallow);
+  }, [cards]);
+
+  const toggleTheme = () => {
+    setTheme(!theme);
+  };
   return (
     <ThemeContext.Provider value={theme}>
       <button
         className={"toggle-theme-button" + (theme ? "-dark" : "-light")}
-        onClick={() => {
-          setTheme(!theme);
-        }}
+        onClick={toggleTheme}
       >
         {theme ? "Light Mode" : "Dark Mode"}
       </button>
@@ -42,7 +65,9 @@ function App() {
           ></div>
           <div className={"card-container" + (theme ? "-dark" : "-light")}>
             {cards.map((card, index) => {
-              return <Card key={index} cardData={card}></Card>;
+              return (
+                <Card key={index} onClick={shuffleCards} cardData={card}></Card>
+              );
             })}
           </div>
         </div>
