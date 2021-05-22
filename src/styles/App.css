@@ -1,38 +1,133 @@
-.App {
-  text-align: center;
-}
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Signika:wght@700&display=swap");
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.App-dark {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  min-width: 100vw;
+  display: grid;
+  grid-template-rows: 10vh auto;
+
+  background: #000000; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to top,
+    #434343,
+    #000000
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to top,
+    #434343,
+    #000000
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.toggle-theme-button-dark {
+  position: absolute;
+  left: 50px;
+  top: 30px;
+  padding: 0.5rem 1rem;
+  width: 10rem;
+  font-family: "Montserrat", monospace;
+  background-color: transparent;
+  cursor: pointer;
+
   color: white;
+  border: 2px dashed rgb(141, 141, 141);
+}
+.toggle-theme-button-dark:hover {
+  background-color: #dfdfdf;
+  color: rgb(0, 0, 0);
+  border: 2px dashed rgb(49, 49, 49);
+  transition: 500ms;
 }
 
-.App-link {
-  color: #61dafb;
+.main-title-container-dark {
+  grid-row: 1;
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #b4b4b4;
+  font-family: "Signika", monospace;
+  font-size: 5rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main-body-container-dark {
+  grid-row: 2;
+
+  display: grid;
+  grid-template-rows: 1fr 5fr;
+  justify-content: center;
+  align-content: start;
+  align-items: start;
+}
+
+.score-container-dark {
+  grid-row: 1;
+  height: 10rem;
+  background-color: white;
+}
+.card-container-dark {
+  grid-row: 2;
+
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+/*
+/
+/
+/
+/
+LIGHT THEME
+/
+/
+/
+/
+/
+/
+/
+*/
+
+.App-light {
+  min-height: 100vh;
+  min-width: 100vw;
+  background: #dbdbdb; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to bottom,
+    #b4b4b4,
+    #ffffff
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    #b4b4b4,
+    #ffffff
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.toggle-theme-button-light {
+  position: absolute;
+  left: 50px;
+  top: 30px;
+  padding: 0.5rem 1rem;
+  width: 10rem;
+  font-family: "Montserrat", monospace;
+  background-color: transparent;
+  cursor: pointer;
+
+  color: rgb(0, 0, 0);
+  border: 2px dashed rgb(49, 49, 49);
+}
+.toggle-theme-button-light:hover {
+  background-color: black;
+  color: rgb(196, 196, 196);
+  border: 2px dashed rgb(219, 219, 219);
+  transition: 500ms;
+}
+.main-title-container-light {
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #3b3b3b;
+  font-family: "Signika", monospace;
+  font-size: 5rem;
 }
