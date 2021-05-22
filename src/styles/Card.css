@@ -30,3 +30,33 @@
   text-align: center;
   margin: 0.25rem 0rem;
 }
+
+.card-light {
+  height: 20rem;
+  width: 15rem;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 2px solid rgb(58, 58, 58);
+
+  padding: 1rem;
+  margin: 1rem;
+}
+.card-light:hover {
+  transition: 200ms;
+  transform: scale(1.02);
+}
+.card-image-light {
+  height: 16rem;
+  width: 14rem;
+}
+.card-info-light {
+  color: #424242;
+  font-family: "Signika", monospace;
+  font-size: 2rem;
+  text-align: center;
+  margin: 0.25rem 0rem;
+}
