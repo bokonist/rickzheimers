@@ -15,8 +15,10 @@ const useHttp = (url, dependencies) => {
         return response.json();
       })
       .then((responseBody) => {
-        setIsLoading(false);
-        setFetchedData(responseBody);
+        setTimeout(() => {
+          setIsLoading(false);
+          setFetchedData(responseBody);
+        }, 1000);
       })
       .catch((error) => {
         console.log(error.message);
