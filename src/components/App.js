@@ -17,26 +17,26 @@ function App() {
     "https://rickandmortyapi.com/api/character",
     []
   );
+
+  const setInitial = () => {
+    setCards(
+      fetchedData.results.map((character, index) => {
+        let obj = {};
+        obj.name = character.name;
+        obj.image = character.image;
+        obj.seen = false;
+        obj.cardID = index;
+        return obj;
+      })
+    );
+  };
   useEffect(() => {
     console.log("useEffect is running");
     if (!isLoading && fetchedData) {
-      setCards((prevCards) => {
-        let myData = fetchedData.results.map((character, index) => {
-          let obj = {};
-          obj.name = character.name;
-          obj.image = character.image;
-          obj.seen = false;
-          obj.cardID = index;
-          return obj;
-        });
-        //console.log(myData);
-        return myData;
-      });
+      setInitial();
     }
-  }, [isLoading, fetchedData, trigger]);
-  const reset = () => {
-    setTrigger(Math.random());
-  };
+  }, [isLoading, fetchedData, setInitial]);
+
   const markSeenAndShuffleCards = (cardID) => {
     let cardsClone = [...cards];
     for (let [key, value] of cardsClone.entries()) {
@@ -51,7 +51,7 @@ function App() {
           });
         } else {
           setScore(0);
-          reset();
+          setInitial();
           return;
         }
       }
