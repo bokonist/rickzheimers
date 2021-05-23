@@ -17,7 +17,7 @@ function App() {
     []
   );
 
-  const setInitial = useCallback(() => {
+  const loadNewGame = useCallback(() => {
     setCards(
       fetchedData.results.map((character, index) => {
         let obj = {};
@@ -32,9 +32,9 @@ function App() {
   useEffect(() => {
     console.log("useEffect is running");
     if (!isLoading && fetchedData) {
-      setInitial();
+      loadNewGame();
     }
-  }, [isLoading, fetchedData, setInitial]);
+  }, [isLoading, fetchedData, loadNewGame]);
 
   const markSeenAndShuffleCards = useCallback(
     (cardID) => {
@@ -51,7 +51,7 @@ function App() {
             });
           } else {
             setScore(0);
-            setInitial();
+            loadNewGame();
             return;
           }
         }
@@ -67,7 +67,7 @@ function App() {
       setCards(cardsClone);
       //console.log(cardsClone);
     },
-    [bestScore, setInitial, cards]
+    [bestScore, loadNewGame, cards]
   );
 
   const toggleTheme = () => {
