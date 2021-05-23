@@ -18,7 +18,7 @@ const useHttp = (url, dependencies) => {
         setTimeout(() => {
           setIsLoading(false);
           setFetchedData(responseBody);
-        }, 1000);
+        }, 3000);
       })
       .catch((error) => {
         console.log(error.message);
