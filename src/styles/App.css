@@ -148,6 +148,12 @@ LIGHT THEME
   font-size: 5rem;
 }
 
+.instructions-light {
+  color: rgb(66, 66, 66);
+  font-size: 1.5rem;
+  font-family: "Montserrat";
+}
+
 .main-body-container-light {
   grid-row: 2;
 
@@ -156,6 +162,12 @@ LIGHT THEME
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.instructions-dark {
+  color: rgb(184, 184, 184);
+  font-size: 1.5rem;
+  font-family: "Montserrat";
 }
 
 .score-container-light {
