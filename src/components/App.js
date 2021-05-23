@@ -2,13 +2,12 @@ import "../styles/App.css";
 
 import { useHttp } from "../hooks/NetworkHooks";
 import { ThemeContext } from "../contexts/ThemeContext";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ClimbingBoxLoader } from "react-spinners";
 
 import { Card } from "./Card";
 
 function App() {
-  const [trigger, setTrigger] = useState(0); // variable to retrigger some hooks if needed
   const [theme, setTheme] = useState(true);
   const [cards, setCards] = useState([]);
   const [score, setScore] = useState(0);
@@ -18,7 +17,7 @@ function App() {
     []
   );
 
-  const setInitial = () => {
+  const setInitial = useCallback(() => {
     setCards(
       fetchedData.results.map((character, index) => {
         let obj = {};
@@ -29,7 +28,7 @@ function App() {
         return obj;
       })
     );
-  };
+  }, [fetchedData]);
   useEffect(() => {
     console.log("useEffect is running");
     if (!isLoading && fetchedData) {
@@ -37,36 +36,39 @@ function App() {
     }
   }, [isLoading, fetchedData, setInitial]);
 
-  const markSeenAndShuffleCards = (cardID) => {
-    let cardsClone = [...cards];
-    for (let [key, value] of cardsClone.entries()) {
-      if (value.cardID === cardID) {
-        if (value.seen !== true) {
-          value.seen = true;
-          setScore((prevScore) => {
-            if (prevScore + 1 > bestScore) {
-              setBestScore(prevScore + 1);
-            }
-            return prevScore + 1;
-          });
-        } else {
-          setScore(0);
-          setInitial();
-          return;
+  const markSeenAndShuffleCards = useCallback(
+    (cardID) => {
+      let cardsClone = [...cards];
+      for (let [key, value] of cardsClone.entries()) {
+        if (value.cardID === cardID) {
+          if (value.seen !== true) {
+            value.seen = true;
+            setScore((prevScore) => {
+              if (prevScore + 1 > bestScore) {
+                setBestScore(prevScore + 1);
+              }
+              return prevScore + 1;
+            });
+          } else {
+            setScore(0);
+            setInitial();
+            return;
+          }
         }
       }
-    }
-    console.log("shuffling");
-    for (let i = 0; i < cards.length; i++) {
-      let index1 = Math.floor(Math.random() * cardsClone.length);
-      let index2 = Math.floor(Math.random() * cardsClone.length);
-      let tempCard = cardsClone[index1];
-      cardsClone[index1] = cardsClone[index2];
-      cardsClone[index2] = tempCard;
-    }
-    setCards(cardsClone);
-    //console.log(cardsClone);
-  };
+      console.log("shuffling");
+      for (let i = 0; i < cards.length; i++) {
+        let index1 = Math.floor(Math.random() * cardsClone.length);
+        let index2 = Math.floor(Math.random() * cardsClone.length);
+        let tempCard = cardsClone[index1];
+        cardsClone[index1] = cardsClone[index2];
+        cardsClone[index2] = tempCard;
+      }
+      setCards(cardsClone);
+      //console.log(cardsClone);
+    },
+    [bestScore, setInitial, cards]
+  );
 
   const toggleTheme = () => {
     setTheme(!theme);
@@ -105,7 +107,9 @@ function App() {
                 return (
                   <Card
                     key={index}
-                    onClick={markSeenAndShuffleCards.bind(null, card.cardID)}
+                    onClick={() => {
+                      markSeenAndShuffleCards(card.cardID);
+                    }}
                     cardData={card}
                   ></Card>
                 );
