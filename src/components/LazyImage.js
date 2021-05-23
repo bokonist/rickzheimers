@@ -6,6 +6,7 @@ function LazyImage(props) {
   const { alt, className, src } = props;
   const [source, setSource] = useState(loadingGIF);
   useEffect(() => {
+    //console.log("fetching image");
     fetch(src)
       .then((response) => {
         if (!response.ok) {
@@ -15,9 +16,7 @@ function LazyImage(props) {
       })
       .then((data) => {
         let url = URL.createObjectURL(data);
-        setTimeout(() => {
-          setSource(url);
-        }, 1000);
+        setSource(url);
       })
       .catch((error) => {
         console.log(error.message);
