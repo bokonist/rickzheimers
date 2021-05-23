@@ -8,18 +8,13 @@ function Card(props) {
   let cardData = props.cardData;
   let theme = useContext(ThemeContext);
   return (
-    <div
-      onClick={props.onClick}
-      className={"card" + (theme ? "-dark" : "-light")}
-    >
+    <div onClick={props.onClick} className={"card"}>
       <LazyImage
         alt={`${cardData.name}`}
         src={cardData.image}
-        className={"card-image" + (theme ? "-dark" : "-light")}
+        className={"card-image"}
       ></LazyImage>
-      <p className={"card-info" + (theme ? "-dark" : "-light")}>
-        {cardData.name}
-      </p>
+      <p className={"card-info"}>{cardData.name}</p>
     </div>
   );
 }

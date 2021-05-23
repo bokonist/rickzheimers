@@ -82,9 +82,7 @@ function App() {
         {theme ? "Light Mode" : "Dark Mode"}
       </button>
       <div className={"App" + (theme ? "-dark" : "-light")}>
-        <div className={"main-title-container" + (theme ? "-dark" : "-light")}>
-          RICKZHEIMERS
-        </div>
+        <div className={"main-title-container"}>RICKZHEIMERS</div>
         {isLoading ? (
           <div className={"loading-animation"}>
             <ClimbingBoxLoader
@@ -94,15 +92,13 @@ function App() {
             />
           </div>
         ) : (
-          <div className={"main-body-container" + (theme ? "-dark" : "-light")}>
-            <p className={"instructions" + (theme ? "-dark" : "-light")}>
-              ( don't click a card twice! )
-            </p>
-            <div className={"score-container" + (theme ? "-dark" : "-light")}>
+          <div className={"main-body-container"}>
+            <p className={"instructions"}>( don't click a card twice! )</p>
+            <div className={"score-container"}>
               <p>Score: {score}/20</p>
               <p>Best Score: {bestScore}/20</p>
             </div>
-            <div className={"card-container" + (theme ? "-dark" : "-light")}>
+            <div className={"card-container"}>
               {cards.map((card, index) => {
                 return (
                   <Card

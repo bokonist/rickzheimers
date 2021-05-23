@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Signika:wght@700&display=swap");
 
-.card-dark {
+.App-dark .card {
   height: 20rem;
   width: 15rem;
   cursor: pointer;
@@ -15,15 +15,15 @@
   padding: 1rem;
   margin: 1rem;
 }
-.card-dark:hover {
+.App-dark .card :hover {
   transition: 200ms;
   transform: scale(1.02);
 }
-.card-image-dark {
+.App-dark .card-image {
   height: 16rem;
   width: 14rem;
 }
-.card-info-dark {
+.App-dark .card-info {
   color: #b4b4b4;
   font-family: "Signika", monospace;
   font-size: 2rem;
@@ -31,7 +31,7 @@
   margin: 0.25rem 0rem;
 }
 
-.card-light {
+.App-light .card {
   height: 20rem;
   width: 15rem;
   cursor: pointer;
@@ -45,15 +45,15 @@
   padding: 1rem;
   margin: 1rem;
 }
-.card-light:hover {
+.App-light .card :hover {
   transition: 200ms;
   transform: scale(1.02);
 }
-.card-image-light {
+.App-light .card-image {
   height: 16rem;
   width: 14rem;
 }
-.card-info-light {
+.App-light .card-info {
   color: #424242;
   font-family: "Signika", monospace;
   font-size: 2rem;

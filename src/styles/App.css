@@ -47,14 +47,14 @@
   color: white;
   border: 2px dashed rgb(141, 141, 141);
 }
-.toggle-theme-button-dark:hover {
+.toggle-theme-button-dark :hover {
   background-color: #dfdfdf;
   color: rgb(0, 0, 0);
   border: 2px dashed rgb(49, 49, 49);
   transition: 500ms;
 }
 
-.main-title-container-dark {
+.App-dark .main-title-container {
   grid-row: 1;
   height: 10rem;
   width: 100%;
@@ -65,12 +65,12 @@
   font-family: "Signika", monospace;
   font-size: 5rem;
 }
-.instructions-dark {
+.App-dark .instructions {
   color: rgb(184, 184, 184);
   font-size: 1.5rem;
   font-family: "Montserrat";
 }
-.main-body-container-dark {
+.App-dark .main-body-container {
   grid-row: 2;
 
   max-width: 100vw;
@@ -80,7 +80,7 @@
   align-items: center;
 }
 
-.score-container-dark {
+.App-dark .score-container {
   grid-row: 1;
   height: 5rem;
   width: 30rem;
@@ -96,7 +96,7 @@
 
   margin: 2rem 0rem;
 }
-.card-container-dark {
+.App-dark .card-container {
   grid-row: 2;
 
   display: grid;
@@ -153,13 +153,13 @@ LIGHT THEME
   color: rgb(0, 0, 0);
   border: 2px dashed rgb(49, 49, 49);
 }
-.toggle-theme-button-light:hover {
+.toggle-theme-button-light :hover {
   background-color: black;
   color: rgb(196, 196, 196);
   border: 2px dashed rgb(219, 219, 219);
   transition: 500ms;
 }
-.main-title-container-light {
+.App-light .main-title-container {
   grid-row: 1;
   height: 10rem;
   width: 100%;
@@ -171,13 +171,13 @@ LIGHT THEME
   font-size: 5rem;
 }
 
-.instructions-light {
+.App-light .instructions {
   color: rgb(66, 66, 66);
   font-size: 1.5rem;
   font-family: "Montserrat";
 }
 
-.main-body-container-light {
+.App-light .main-body-container {
   grid-row: 2;
 
   max-width: 100%;
@@ -187,7 +187,7 @@ LIGHT THEME
   align-items: center;
 }
 
-.score-container-light {
+.App-light .score-container {
   grid-row: 1;
   height: 5rem;
   width: 30rem;
@@ -203,7 +203,7 @@ LIGHT THEME
 
   margin: 2rem 0rem;
 }
-.card-container-light {
+.App-light .card-container {
   grid-row: 2;
 
   display: grid;
