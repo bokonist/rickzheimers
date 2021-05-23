@@ -12,10 +12,10 @@
 }
 
 .App-dark {
-  min-height: 100vh;
-  min-width: 100vw;
+  height: auto;
+  width: auto;
 
-  max-width: 100vw;
+  max-width: 100%;
   display: grid;
   grid-template-rows: 10rem auto;
 
@@ -117,10 +117,10 @@ LIGHT THEME
 */
 
 .App-light {
-  min-height: 100vh;
-  min-width: 100vw;
+  height: auto;
+  width: auto;
 
-  max-width: 100vw;
+  max-width: 100%;
   display: grid;
   grid-template-rows: 10rem auto;
 
