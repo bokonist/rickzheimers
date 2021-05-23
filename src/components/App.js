@@ -3,16 +3,18 @@ import "../styles/App.css";
 import { useHttp } from "../hooks/NetworkHooks";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { useEffect, useState } from "react";
+import { ClimbingBoxLoader } from "react-spinners";
 
 import { Card } from "./Card";
 
 function App() {
+  const [trigger, setTrigger] = useState(0); // variable to retrigger some hooks if needed
   const [theme, setTheme] = useState(true);
   const [cards, setCards] = useState([]);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
   let [isLoading, fetchedData] = useHttp(
-    "http://rickandmortyapi.com/api/character",
+    "https://rickandmortyapi.com/api/character",
     []
   );
   useEffect(() => {
@@ -31,16 +33,9 @@ function App() {
         return myData;
       });
     }
-  }, [fetchedData]);
+  }, [isLoading, fetchedData, trigger]);
   const reset = () => {
-    console.log("resetting");
-    let cardsClone = [...cards];
-    for (let [key, value] of cardsClone.entries()) {
-      value.seen = false;
-    }
-    setCards(cardsClone);
-
-    //
+    setTrigger(Math.random());
   };
   const markSeenAndShuffleCards = (cardID) => {
     let cardsClone = [...cards];
@@ -84,28 +79,43 @@ function App() {
       >
         {theme ? "Light Mode" : "Dark Mode"}
       </button>
-      <div className={"App" + (theme ? "-dark" : "-light")}>
-        <div className={"main-title-container" + (theme ? "-dark" : "-light")}>
-          RICKZHEIMERS
-        </div>
-        <div className={"main-body-container" + (theme ? "-dark" : "-light")}>
-          <div className={"score-container" + (theme ? "-dark" : "-light")}>
-            <p>Score: {score}/20</p>
-            <p>Best Score: {bestScore}/20</p>
+      {isLoading ? (
+        <ClimbingBoxLoader
+          size={60}
+          color={`#000`}
+          loading={isLoading}
+          style={`position:absolute;
+          top:50px; right:50px;`}
+        />
+      ) : (
+        <div className={"App" + (theme ? "-dark" : "-light")}>
+          <div
+            className={"main-title-container" + (theme ? "-dark" : "-light")}
+          >
+            RICKZHEIMERS
           </div>
-          <div className={"card-container" + (theme ? "-dark" : "-light")}>
-            {cards.map((card, index) => {
-              return (
-                <Card
-                  key={index}
-                  onClick={markSeenAndShuffleCards.bind(null, card.cardID)}
-                  cardData={card}
-                ></Card>
-              );
-            })}
+          <div className={"main-body-container" + (theme ? "-dark" : "-light")}>
+            <p className={"instructions" + (theme ? "-dark" : "-light")}>
+              Don't Click a card twice!
+            </p>
+            <div className={"score-container" + (theme ? "-dark" : "-light")}>
+              <p>Score: {score}/20</p>
+              <p>Best Score: {bestScore}/20</p>
+            </div>
+            <div className={"card-container" + (theme ? "-dark" : "-light")}>
+              {cards.map((card, index) => {
+                return (
+                  <Card
+                    key={index}
+                    onClick={markSeenAndShuffleCards.bind(null, card.cardID)}
+                    cardData={card}
+                  ></Card>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </ThemeContext.Provider>
   );
 }
