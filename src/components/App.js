@@ -79,24 +79,22 @@ function App() {
       >
         {theme ? "Light Mode" : "Dark Mode"}
       </button>
-      {isLoading ? (
-        <ClimbingBoxLoader
-          size={60}
-          color={`#000`}
-          loading={isLoading}
-          style={`position:absolute;
-          top:50px; right:50px;`}
-        />
-      ) : (
-        <div className={"App" + (theme ? "-dark" : "-light")}>
-          <div
-            className={"main-title-container" + (theme ? "-dark" : "-light")}
-          >
-            RICKZHEIMERS
+      <div className={"App" + (theme ? "-dark" : "-light")}>
+        <div className={"main-title-container" + (theme ? "-dark" : "-light")}>
+          RICKZHEIMERS
+        </div>
+        {isLoading ? (
+          <div className={"loading-animation"}>
+            <ClimbingBoxLoader
+              size={30}
+              color={theme ? `#FFF` : `#000`}
+              loading={isLoading}
+            />
           </div>
+        ) : (
           <div className={"main-body-container" + (theme ? "-dark" : "-light")}>
             <p className={"instructions" + (theme ? "-dark" : "-light")}>
-              Don't Click a card twice!
+              ( don't click a card twice! )
             </p>
             <div className={"score-container" + (theme ? "-dark" : "-light")}>
               <p>Score: {score}/20</p>
@@ -114,8 +112,8 @@ function App() {
               })}
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </ThemeContext.Provider>
   );
 }

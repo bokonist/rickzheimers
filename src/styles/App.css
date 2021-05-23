@@ -1,13 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Signika:wght@700&display=swap");
 
+.loading-animation {
+  grid-row: 2;
+
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .App-dark {
   min-height: 100vh;
   min-width: 100vw;
 
   max-width: 100vw;
   display: grid;
-  grid-template-rows: 10vh auto;
+  grid-template-rows: 10rem auto;
 
   background: #000000; /* fallback for old browsers */
   background: -webkit-linear-gradient(
@@ -44,7 +54,7 @@
 
 .main-title-container-dark {
   grid-row: 1;
-  height: 10vh;
+  height: 10rem;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -53,11 +63,15 @@
   font-family: "Signika", monospace;
   font-size: 5rem;
 }
-
+.instructions-dark {
+  color: rgb(184, 184, 184);
+  font-size: 1.5rem;
+  font-family: "Montserrat";
+}
 .main-body-container-dark {
   grid-row: 2;
 
-  max-width: 100%;
+  max-width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -105,6 +119,11 @@ LIGHT THEME
 .App-light {
   min-height: 100vh;
   min-width: 100vw;
+
+  max-width: 100vw;
+  display: grid;
+  grid-template-rows: 10rem auto;
+
   background: #dbdbdb; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to bottom,
@@ -138,7 +157,7 @@ LIGHT THEME
 }
 .main-title-container-light {
   grid-row: 1;
-  height: 10vh;
+  height: 10rem;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -162,12 +181,6 @@ LIGHT THEME
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.instructions-dark {
-  color: rgb(184, 184, 184);
-  font-size: 1.5rem;
-  font-family: "Montserrat";
 }
 
 .score-container-light {
